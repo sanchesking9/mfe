@@ -1,4 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const packageJson = require("../package.json");
+const ModelFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 
 module.exports = {
     module: {
@@ -17,6 +19,14 @@ module.exports = {
         ]
     },
     plugins: [
+        new ModelFederationPlugin({
+            name: 'marketing',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './MarketingApp': '/src/bootstrap',
+            },
+            shared: packageJson.dependencies,
+        }),
         new HtmlWebpackPlugin({
             template: './public/index.html',
         })
