@@ -28,6 +28,15 @@ const mount = (el, { onNavigate, defaultHistory, initialPath }) => {
   };
 };
 
+
+if (!window.AFCMF) {
+  window.AFCMF = {};
+}
+
+window.AFCMF = {
+  marketingMount: mount,
+};
+
 // If we are in development and in isolation,
 // call mount immediately
 if (process.env.NODE_ENV === 'development') {
